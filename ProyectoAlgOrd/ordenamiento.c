@@ -1,10 +1,19 @@
+/*	Programa que permite comparar el desempeño de los
+	algoritmos basicos de ordenamiento: selección, inserción y
+	burbuja.
+
+	Tonys Fonseca.
+	CI: 21.477.926
+	Programación I, sección 02
+
+*/
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
 #include <string.h>
-#define DM 10000
-#define CM 100000
-#define UM 1000000
+#define DM 1000
+#define CM 10000
+#define UM 100000
 /*Prototipos*/
 int *copiar(int const *v, int tam);
 void intercambiar(int *a, int *b);
@@ -21,76 +30,84 @@ int main()
 	double tiempo;
 	struct timeval tv1, tv2;
 
-	/*Array de 10000*/
+	/*Array de 1000*/
 	v = genRndArray(DM);
-	/*Array de 100000*/
+	/*Array de 10000*/
 	x = genRndArray(CM);
-	/*Array de 1000000*/
+	/*Array de 100000*/
 	z = genRndArray(UM);
 
-	/*Array de 10000*/
+	/*Array de 1000*/
 	aux = copiar(v, DM);
 	gettimeofday(&tv1, NULL);
 	selectionSort(aux, DM); //llamada al metodo de ordenamiento
 	gettimeofday(&tv2, NULL);
 	tiempo = (double) (tv2.tv_usec - tv1.tv_usec) / 1000000 + (double) (tv2.tv_sec - tv1.tv_sec);
-	printf("Vector de 10000. Tiempo de ordenamiento por seleccion: %f\n", tiempo);
+	printf("Vector de 1000. Tiempo de ordenamiento por seleccion: %f\n", tiempo);
 
 	aux = copiar(v, DM);
 	gettimeofday(&tv1, NULL);
 	bubbleSort(aux, DM); //llamada al metodo de ordenamiento
 	gettimeofday(&tv2, NULL);
 	tiempo = (double) (tv2.tv_usec - tv1.tv_usec) / 1000000 + (double) (tv2.tv_sec - tv1.tv_sec);
-	printf("Vector de 10000. Tiempo de ordenamiento por burbuja: %f\n", tiempo);
+	printf("Vector de 1000. Tiempo de ordenamiento por burbuja: %f\n", tiempo);
 
 	aux = copiar(v, DM);
 	gettimeofday(&tv1, NULL);
 	insertionSort(aux, DM); //llamada al metodo de ordenamiento
 	gettimeofday(&tv2, NULL);
 	tiempo = (double) (tv2.tv_usec - tv1.tv_usec) / 1000000 + (double) (tv2.tv_sec - tv1.tv_sec);
-	printf("Vector de 10000. Tiempo de ordenamiento por insercion: %f\n", tiempo);
-	/*Array de 100000*/
+	printf("Vector de 1000. Tiempo de ordenamiento por insercion: %f\n", tiempo);
+	free(v); //libera memoria
+	free(aux); //libera memoria
+
+	/*Array de 10000*/
 	aux = copiar(x, CM);
 	gettimeofday(&tv1, NULL);
 	selectionSort(aux, CM); //llamada al metodo de ordenamiento
 	gettimeofday(&tv2, NULL);
 	tiempo = (double) (tv2.tv_usec - tv1.tv_usec) / 1000000 + (double) (tv2.tv_sec - tv1.tv_sec);
-	printf("Vector de 100000. Tiempo de ordenamiento por seleccion: %f\n", tiempo);
+	printf("Vector de 10000. Tiempo de ordenamiento por seleccion: %f\n", tiempo);
 
 	aux = copiar(x, CM);
 	gettimeofday(&tv1, NULL);
 	bubbleSort(aux, CM); //llamada al metodo de ordenamiento
 	gettimeofday(&tv2, NULL);
 	tiempo = (double) (tv2.tv_usec - tv1.tv_usec) / 1000000 + (double) (tv2.tv_sec - tv1.tv_sec);
-	printf("Vector de 100000. Tiempo de ordenamiento por burbuja: %f\n", tiempo);
+	printf("Vector de 10000. Tiempo de ordenamiento por burbuja: %f\n", tiempo);
 
 	aux = copiar(x, CM);
 	gettimeofday(&tv1, NULL);
 	insertionSort(aux, CM); //llamada al metodo de ordenamiento
 	gettimeofday(&tv2, NULL);
 	tiempo = (double) (tv2.tv_usec - tv1.tv_usec) / 1000000 + (double) (tv2.tv_sec - tv1.tv_sec);
-	printf("Vector de 100000. Tiempo de ordenamiento por insercion: %f\n", tiempo);
-	/*Array de 1000000*/
+	printf("Vector de 10000. Tiempo de ordenamiento por insercion: %f\n", tiempo);
+	free(x); //libera memoria
+	free(aux); //libera memoria
+
+	/*Array de 100000*/
 	aux = copiar(z, UM);
 	gettimeofday(&tv1, NULL);
 	selectionSort(aux, UM); //llamada al metodo de ordenamiento
 	gettimeofday(&tv2, NULL);
 	tiempo = (double) (tv2.tv_usec - tv1.tv_usec) / 1000000 + (double) (tv2.tv_sec - tv1.tv_sec);
-	printf("Vector de 1000000. Tiempo de ordenamiento por seleccion: %f\n", tiempo);
+	printf("Vector de 100000. Tiempo de ordenamiento por seleccion: %f\n", tiempo);
 
 	aux = copiar(z, UM);
 	gettimeofday(&tv1, NULL);
 	bubbleSort(aux, UM); //llamada al metodo de ordenamiento
 	gettimeofday(&tv2, NULL);
 	tiempo = (double) (tv2.tv_usec - tv1.tv_usec) / 1000000 + (double) (tv2.tv_sec - tv1.tv_sec);
-	printf("Vector de 1000000. Tiempo de ordenamiento por burbuja: %f\n", tiempo);
+	printf("Vector de 100000. Tiempo de ordenamiento por burbuja: %f\n", tiempo);
 
 	aux = copiar(z, UM);
 	gettimeofday(&tv1, NULL);
 	insertionSort(aux, UM); //llamada al metodo de ordenamiento
 	gettimeofday(&tv2, NULL);
 	tiempo = (double) (tv2.tv_usec - tv1.tv_usec) / 1000000 + (double) (tv2.tv_sec - tv1.tv_sec);
-	printf("Vector de 1000000. Tiempo de ordenamiento por insercion: %f\n", tiempo);
+	printf("Vector de 100000. Tiempo de ordenamiento por insercion: %f\n", tiempo);
+	free(z); //libera memoria
+	free(aux); //libera memoria
 
 	return 0;
 }
@@ -127,8 +144,10 @@ int *genRndArray(int size)
 	int *v, i, j;
 
 	v = (int *) malloc(size * sizeof(int)); //Asigna memoria para "size" elementos
+	if (v == NULL)
+		printf("ERROR en la asignacion de memoria\n");
 	llenarVectorMenoraMayor(v, size); // llena el array con enteros desde 1 hasta size 
-	srand(time(NULL)); //
+	srand(time(NULL));
 
 	for (i = 0; i < size-2; i++)// desordena el array
 	{
@@ -143,8 +162,8 @@ void bubbleSort(int *v, int n)
 {
 	int i, j, band;
 	#ifdef DEBUG
-	int comp = 0;
-	int inter = 0;
+	long long comp = 0;
+	long long inter = 0;
 	#endif
 
 	i = n-1;
@@ -169,7 +188,7 @@ void bubbleSort(int *v, int n)
 		}
 	}
 	#ifdef DEBUG
-	printf("Burbuja -- Comparaciones: %d -- Intercambios: %d\n", comp, inter);
+	printf("Burbuja -- Comparaciones: %lld -- Intercambios: %lld\n", comp, inter);
 	#endif
 }
 /*Metodo de ordenamiento por seleccion*/
@@ -177,8 +196,8 @@ void selectionSort(int *v, int n)
 {
 	int i, j, posMenor;
 	#ifdef DEBUG
-	int comp = 0;
-	int inter = 0;
+	long long comp = 0;
+	long long inter = 0;
 	#endif
 
 	for (i = 0; i < n-1; i++)
@@ -201,7 +220,7 @@ void selectionSort(int *v, int n)
 		}
 	}
 	#ifdef DEBUG
-	printf("Seleccion -- Comparaciones: %d -- Intercambios: %d\n", comp, inter);
+	printf("Seleccion -- Comparaciones: %lld -- Intercambios: %lld\n", comp, inter);
 	#endif
 }
 /*Metodo de ordenamiento por inserción*/
@@ -209,8 +228,8 @@ void insertionSort(int *v, int n)
 {
 	int i, j, aux;
 	#ifdef DEBUG
-	int comp = 0;
-	int inter = 0;
+	long long comp = 0;
+	long long inter = 0;
 	#endif
 
 	for (i = 1; i < n; i++)
@@ -232,7 +251,7 @@ void insertionSort(int *v, int n)
 		v[j] = aux;
 	}
 	#ifdef DEBUG
-	printf("Insercion -- Comparaciones: %d -- Intercambios: %d\n", comp, inter);
+	printf("Insercion -- Comparaciones: %lld -- Intercambios: %lld\n", comp, inter);
 	#endif
 }
 void escribir(int *v, int n)
